@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}My Post{% endblock %}
+
+{% load static %}
+{% block content %}
+{% if posts %}
+{% for post in posts %}
+	<div class="w3-container w3-card w3-white w3-round w3-margin"><br>
+		<div class="first">
+		<img src="{% if post.user.profile.photo %} {{post.user.profile.photo.url}} 
+		        {% else %}{% static 'img/user.png' %}{% endif %}" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:60px;max-height: 60px;">
+        <div style="float: right;">
+	        <a type="button" class="btn btn-default btn-sm" href="{% url 'post:post_edit' post.id %}">
+	          <span class="glyphicon glyphicon-pencil"></span> Edit 
+	        </a>
+        </div>
+		</div>
+	        <h4>{{ post.user|title }}</h4><br>
+	        <hr class="w3-clear">
+	        <!-- <a href="{% url 'post:post_detail' post.id %}" style="color: black;"> -->
+        	<a href="{{ post.get_absolute_url }}" style="color: black;">
+	        <p>{{ post.title }}</p>
+	        {% if post.image %}
+	        <div style="max-width:100%;height:auto;object-fit: cover;" class="img-fluid">
+	        	<img src="{{ post.image.url }}" class="img-fluid" style="max-width:100%;height:auto;object-fit: cover;">
+	        </div>
+	        <p>{{ post.description }}</p>
+	    	</a>
+	    	{% endif %}
+	    	{% with total_likes=post.likes.count users_like=post.likes.all %}
+		    <div class="image-info">
+		      <div>
+		        <span class="count">
+		          <span class="total">Comments</span>
+		        </span>
+	    	  </div>
+		    </div>   
+    	{% endwith %} 
+</div>
+	{% endfor %}
+ {% else %}
+ 	<center>No posts Yet.</center>
+ {% endif %}
+{% endblock %}

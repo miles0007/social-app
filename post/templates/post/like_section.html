@@ -1,0 +1,12 @@
+<div style="float:right;">
+      <form action="{% url 'post:like_post' %}" method="post" class="mb-5">
+        {% csrf_token %}
+        <p style="display:inline;">{{ total_likes }} Likes<p>
+        {% if is_liked %}
+          <a type="submit" id="like" name="post_id" value="{{ post.id }}"><i class="material-icons like">favorite</i></a>
+        {% else %}
+          <a type="submit" id="like" name="post_id" value="{{ post.id }}"><i class="material-icons unlike">favorite</i></a>
+        {% endif %}
+      </form>
+  </div>
+

@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %}Liked Post{% endblock %}
+
+{% block content %}
+
+{% for ele in posts %}
+
+{{ ele.title }}
+
+{% endfor %}
+{% endblock %}

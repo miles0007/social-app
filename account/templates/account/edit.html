@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}User Details{% endblock %}
+
+{% block content %}
+{% for field in data %}
+	<div>
+	{% if field.photo %}
+		<img src="{{ field.photo.url }}" class="thumbnail" style="width:70px;
+	        max-height: 70px;">
+	{% else %}
+		<img src="{% static 'img/user.png' %}" class="thumbnail" style="width:60px;
+	        max-height: 60px; border-radius: 50px;">
+	{% endif %}
+	</div>
+{% endfor %}
+<form method="post" enctype="multipart/form-data">
+    {{ user_form.as_p }}
+    {{ profile_form.as_p }}
+    {% csrf_token %}
+    <button type="submit" class="registerbtn" name="button">Update</button>
+  </form>
+{% endblock %}
